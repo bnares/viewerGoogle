@@ -1,0 +1,23 @@
+
+import {createRequire as ___nfyCreateRequire} from "module";
+import {fileURLToPath as ___nfyFileURLToPath} from "url";
+import {dirname as ___nfyPathDirname} from "path";
+let __filename=___nfyFileURLToPath(import.meta.url);
+let __dirname=___nfyPathDirname(___nfyFileURLToPath(import.meta.url));
+let require=___nfyCreateRequire(import.meta.url);
+
+
+// netlify/functions/accessToken.ts
+import { google } from "googleapis";
+var accessToken_default = async (request) => {
+  const data = await request.json();
+  const { code, clientId, clientSecret, env } = data;
+  const oauth = new google.auth.OAuth2(clientId, clientSecret, env);
+  const { tokens } = await oauth.getToken(code);
+  oauth.setCredentials(tokens);
+  return new Response(JSON.stringify(tokens.access_token), { status: 200 });
+};
+export {
+  accessToken_default as default
+};
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsibmV0bGlmeS9mdW5jdGlvbnMvYWNjZXNzVG9rZW4udHMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImltcG9ydCB7IGdvb2dsZSB9IGZyb20gXCJnb29nbGVhcGlzXCI7XHJcblxyXG5leHBvcnQgZGVmYXVsdCBhc3luYyAocmVxdWVzdDogUmVxdWVzdCkgPT4ge1xyXG4gIGNvbnN0IGRhdGEgPSBhd2FpdCByZXF1ZXN0Lmpzb24oKTtcclxuXHJcbiAgY29uc3QgeyBjb2RlLCBjbGllbnRJZCwgY2xpZW50U2VjcmV0LCBlbnYgfSA9IGRhdGE7XHJcblxyXG4gIGNvbnN0IG9hdXRoID0gbmV3IGdvb2dsZS5hdXRoLk9BdXRoMihjbGllbnRJZCwgY2xpZW50U2VjcmV0LCBlbnYpO1xyXG5cclxuICBjb25zdCB7IHRva2VucyB9ID0gYXdhaXQgb2F1dGguZ2V0VG9rZW4oY29kZSk7XHJcblxyXG4gIG9hdXRoLnNldENyZWRlbnRpYWxzKHRva2Vucyk7XHJcblxyXG4gIHJldHVybiBuZXcgUmVzcG9uc2UoSlNPTi5zdHJpbmdpZnkodG9rZW5zLmFjY2Vzc190b2tlbiksIHsgc3RhdHVzOiAyMDAgfSk7XHJcbn07XHJcbiJdLAogICJtYXBwaW5ncyI6ICI7Ozs7Ozs7Ozs7QUFBQSxTQUFTLGNBQWM7QUFFdkIsSUFBTyxzQkFBUSxPQUFPLFlBQXFCO0FBQ3pDLFFBQU0sT0FBTyxNQUFNLFFBQVEsS0FBSztBQUVoQyxRQUFNLEVBQUUsTUFBTSxVQUFVLGNBQWMsSUFBSSxJQUFJO0FBRTlDLFFBQU0sUUFBUSxJQUFJLE9BQU8sS0FBSyxPQUFPLFVBQVUsY0FBYyxHQUFHO0FBRWhFLFFBQU0sRUFBRSxPQUFPLElBQUksTUFBTSxNQUFNLFNBQVMsSUFBSTtBQUU1QyxRQUFNLGVBQWUsTUFBTTtBQUUzQixTQUFPLElBQUksU0FBUyxLQUFLLFVBQVUsT0FBTyxZQUFZLEdBQUcsRUFBRSxRQUFRLElBQUksQ0FBQztBQUMxRTsiLAogICJuYW1lcyI6IFtdCn0K
