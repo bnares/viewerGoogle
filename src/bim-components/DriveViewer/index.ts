@@ -1,4 +1,5 @@
 import * as OBC from "@thatopen/components";
+import * as WEBIFC from "web-ifc"
 
 export interface AuthData {
   clientId: string;
@@ -118,6 +119,42 @@ export class DriveViewer extends OBC.Component {
       return undefined;
     }
   }
+
+  async updateFile(fieldId:string, typedArray:Uint8Array){
+    const token = localStorage.getItem("googleToken");
+    if(!token) return;
+    const fragments = this.components.get(OBC.FragmentsManager);
+    const propsManager = this.components.get(OBC.IfcPropertiesManager);
+    for(const [_, model] of fragments.groups.entries()){
+      const properties = await model.getAllPropertiesOfType(WEBIFC.IFCSITE);
+
+      if(!properties) continue;
+      for(const [_, data] of Object.entries(properties)){
+        if(!data) continue;
+        const {RefLatitude, RefLongitude} = data;
+        if(!RefLatitude || !RefLongitude) continue;
+        const latitude = [0,0,0,0];
+        const longitude = [0,0,0,0];
+        RefLatitude.value = latitude;
+        RefLongitude.value = longitude;
+        await propsManager.setData(model, data);
+      }
+      const modifiedBuffer = await propsManager.saveToIfc(model, typedArray);
+      const file = new File([modifiedBuffer], "model.ifc");
+      const formData = new FormData();
+      formData.append("fieldId",fieldId);
+      formData.set("token", token);
+      formData.set("file", file);
+      await fetch("/.netlify/functions/modifyFile",{
+        method:'post',
+        body:JSON.stringify(formData)
+      });
+
+
+    }
+  }
+
+  
 }
 
 export * from "./src";

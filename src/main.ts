@@ -145,6 +145,7 @@ if (fileId) {
     const buffer = encoder.encode(fileData);
     const model = await ifcLoader.load(buffer);
     world.scene.three.add(model);
+    setTimeout(async()=>await drive.updateFile(fileId,buffer), 3000)
   }
 }
 
