@@ -64,8 +64,9 @@ export class DriveViewer extends OBC.Component {
     const state = urlParams.get("state") || "";
     if (state) {
       const stateValues = JSON.parse(decodeURIComponent(state));
+      console.log("getQuerryParams state is id an array?: ", stateValues);
       const ids = stateValues?.ids;
-      return { authCode: null, fileId: ids };
+      return { authCode: null, fileId: ids[0] };
     }
 
     if (code) {
