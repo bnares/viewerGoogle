@@ -129,6 +129,7 @@ const elementDataPanel = elementData(components);
 const drive = components.get(DriveViewer);
 
 const { authCode, fileId } = drive.getQueryParams();
+console.log("querryParam: ", authCode, " + ",fileId);
 
 if (authCode) {
   await drive.setCode(authCode);
