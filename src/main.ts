@@ -135,7 +135,9 @@ if (authCode) {
 }
 
 if (fileId) {
+  console.log("inside fileId: ", fileId);
   const fileData = await drive.getDriveFile(fileId);
+  console.log("fileData: ", fileData);
 
   if (fileData) {
     const encoder = new TextEncoder();
